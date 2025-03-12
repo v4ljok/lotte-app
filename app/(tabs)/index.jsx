@@ -11,9 +11,9 @@ export default function Index() {
         fontSize: "30px",
       }}
     >
-      <Text>Hello</Text>
-      <Link href="/search">Search</Link>
-      <Link href="/product/piim">piim</Link>
+      {/* <Text>Hello</Text> */}
+      {/* <Link href="/search">Search</Link> */}
+      <Link href="/product/juust">juust</Link>
     </View>
   );
 }

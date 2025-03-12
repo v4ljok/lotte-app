@@ -4,12 +4,12 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen
-        name="{tabs}"
+        name="(tabs)"
         options={{
           headerShowns: false, }}
       />
       <Stack.Screen
-        name="products/[id]"
+        name="product/[id]"
         options={{
           headerShowns: false, }}
       />
