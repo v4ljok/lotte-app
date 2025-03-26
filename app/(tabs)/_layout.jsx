@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
       android: {
         elevation: 4,
       },
+      web: {
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.15)",
+      },
     }),
   },
   tabIconDefault: {
@@ -33,7 +36,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 24,
     height: 24,
-    resizeMode: "contain",
   },
   labelFocused: {
     color: "#151312",
@@ -63,11 +65,21 @@ const styles = StyleSheet.create({
       android: {
         elevation: 8,
       },
+      web: {
+        boxShadow: "0px -2px 4px rgba(0, 0, 0, 0.1)",
+      },
     }),
   },
   tabBarItem: {
     padding: 4,
   },
+  webContainer: Platform.select({
+    web: {
+      cursor: 'pointer',
+      userSelect: 'none',
+    },
+    default: {},
+  }),
 });
 
 function TabIcon({ focused, icon, title }) {
@@ -76,11 +88,14 @@ function TabIcon({ focused, icon, title }) {
       style={[
         styles.tabIconContainer,
         focused ? styles.tabIconFocused : styles.tabIconDefault,
+        styles.webContainer,
       ]}
     >
       <Image
         source={icon}
-        style={[styles.icon, { tintColor: focused ? "#151312" : "#A8B5DB" }]}
+        style={styles.icon}
+        resizeMode="contain"
+        tintColor={focused ? "#151312" : "#A8B5DB"}
       />
       <Text style={focused ? styles.labelFocused : styles.labelDefault}>
         {title}
@@ -98,6 +113,11 @@ const _layout = () => {
         tabBarItemStyle: styles.tabBarItem,
         tabBarActiveTintColor: "#151312",
         tabBarInactiveTintColor: "#A8B5DB",
+        tabBarButton: (props) => (
+          <View style={styles.webContainer}>
+            {props.children}
+          </View>
+        ),
       }}
     >
       <Tabs.Screen
@@ -107,6 +127,16 @@ const _layout = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <TabIcon focused={focused} icon={icons.history} title="History" />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="preferences"
+        options={{
+          title: "Preferences",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon focused={focused} icon={icons.history} title="Preferences" />
           ),
         }}
       />
